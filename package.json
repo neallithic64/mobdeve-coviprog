@@ -1,0 +1,26 @@
+{
+  "name": "mobdeve-coviprog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "npx nodemon"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neallithic64/mobdeve-coviprog.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/neallithic64/mobdeve-coviprog/issues"
+  },
+  "homepage": "https://github.com/neallithic64/mobdeve-coviprog#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^6.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}
