@@ -1,6 +1,6 @@
 const express = require("express");
 const db = require("./models/db.js");
-const router = require("./routers/coproRouter");
+const router = require("./routers/cpRouter");
 
 const port = process.env.PORT || 3000;
 const app = express();

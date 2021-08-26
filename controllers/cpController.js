@@ -27,7 +27,7 @@ async function genOrderCode(ordType) {
 
 /* Index Functions
  */
-const coproController = {
+const cpController = {
 	getHome: async function(req, res) {
 		let products = await db.findMany(Product, {});
 		res.render('dashboard', {
@@ -54,4 +54,4 @@ const coproController = {
 	}
 };
 
-module.exports = coproController;
+module.exports = cpController;
