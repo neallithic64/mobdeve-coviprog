@@ -7,6 +7,7 @@ const coproController = require("./controllers/coproController");
 
 // GET routes
 router.get("/", coproController.getHome);
+router.get("/api", coproController.getAPI);
 
 
 // POST routes
