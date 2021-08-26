@@ -1,6 +1,19 @@
 const db = require('../models/db');
 // MONGO MODEL IMPORTS
-// const User = require('../models/User');
+const Admin = require('../models/AdminModel');
+const AdminUser = require('../models/AdminUserModel');
+const Case = require('../models/CaseModel');
+const Feedback = require('../models/FeedbackModel');
+const Notif = require('../models/NotifModel');
+const Outcome = require('../models/OutcomeModel');
+const ProgChecklist = require('../models/ProgChecklistModel');
+const Program = require('../models/ProgramModel');
+const PublicUser = require('../models/PublicUserModel');
+const Resource = require('../models/ResourceModel');
+const Symptom = require('../models/SymptomModel');
+const UserCov = require('../models/UserCovModel');
+const UserProg = require('../models/UserProgModel');
+
 
 function forceJSON(e) {
 	return JSON.parse(JSON.stringify(e));

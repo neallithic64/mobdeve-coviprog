@@ -1,13 +1,13 @@
 const express = require("express");
 const router = express();
-const cpController = require("./controllers/cpController");
+const cpController = require("../controllers/cpController");
 
 // sandboxing routes
 
 
 // GET routes
 router.get("/", cpController.getHome);
-router.get("/api", cpController.getAPI);
+// router.get("/api", cpController.getAPI);
 
 
 // POST routes
