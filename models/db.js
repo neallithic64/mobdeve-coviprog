@@ -17,81 +17,84 @@ const database = {
 		}
 	},
 
-	insertOne: async function(model, doc, callback) {
+	insertOne: async function(model, doc) {
 		try {
-			var result =  await model.create(doc);
+			let result = await model.create(doc);
 			console.log('Added ' + result);
-			return callback(true);
+			return true;
 		} catch (e) {
-			return callback(false);
+			console.log(e);
+			return false;
 		}
 	},
-
-	insertMany: async function(model, docs, callback) {
+	
+	insertMany: async function(model, docs) {
 		try {
-			var result = await model.insertMany(docs);
+			let result = await model.insertMany(docs);
 			console.log('Added ' + result);
-			return callback(true);
+			return true;
 		} catch (e) {
-			return callback(false);
+			console.log(e);
+			return false;
 		}
 	},
-
-	findOne: async function(model, query, projection, callback) {
+	
+	findOne: async function(model, query, projection) {
 		try {
-			var result = await model.findOne(query, projection);
-			return callback(result);
+			let result = await model.findOne(query, projection);
+			return result;
 		} catch (e) {
-			return callback(false);
+			return false;
 		}
 	},
-
-	findMany: async function(model, query, projection, callback) {
+	
+	findMany: async function(model, query, projection) {
 		try {
-			var result = await model.find(query, projection);
-			return callback(result);
+			let result = await model.find(query, projection);
+			return result;
 		} catch (e) {
-			return callback(false);
+			return false;
 		}
 	},
-
-	updateOne: async function(model, filter, update, callback) {
+	
+	updateOne: async function(model, filter, update) {
 		try {
-			var result = await model.updateOne(filter, update);
+			let result = await model.updateOne(filter, update);
 			console.log('Document modified: ' + result.nModified);
-			return callback(true);
+			return true;
 		} catch (e) {
-			return callback(false);
+			console.log(e);
+			return false;
 		}
 	},
-
-	updateMany: async function(model, filter, update, callback) {
+	
+	updateMany: async function(model, filter, update) {
 		try {
-			var result = await model.updateMany(filter, update);
+			let result = await model.updateMany(filter, update);
 			console.log('Document modified: ' + result.nModified);
-			return callback(true);
+			return true;
 		} catch (e) {
-			return callback(false);
+			return false;
 		}
 	},
-
-	deleteOne: async function(model, conditions, callback) {
+	
+	deleteOne: async function(model, conditions) {
 		try {
-			var result = await model.deleteOne(conditions);
+			let result = await model.deleteOne(conditions);
 			console.log('Document deleted: ' + result.deletedCount);
-			return callback(true);
+			return true;
 		} catch (e) {
-			return callback(false);
+			return false;
 		}
 	},
-
-	deleteMany: async function(model, conditions, callback) {
+	
+	deleteMany: async function(model, conditions) {
 		try {
-			var result = await model.deleteMany(conditions);
+			let result = await model.deleteMany(conditions);
 			console.log('Document deleted: ' + result.deletedCount);
-			return callback(true);
+			return true;
 		} catch (e) {
-			return callback(false);
+			return false;
 		}
 	},
 	

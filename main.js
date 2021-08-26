@@ -4,9 +4,11 @@ const app = express();
 
 require("dotenv").config();
 
-const router = require("./routers/cpRouter");
 const db = require("./models/db.js");
 db.connect();
+
+const router = require("./routers/cpRouter");
+app.use('/', router);
 
 app.use(express.static(__dirname + "/"));
 

@@ -1,18 +1,21 @@
 const db = require('../models/db');
-// MONGO MODEL IMPORTS
+
+// ProgramPlan Mongo Model Imports
 const Admin = require('../models/AdminModel');
-const AdminUser = require('../models/AdminUserModel');
-const Case = require('../models/CaseModel');
 const Feedback = require('../models/FeedbackModel');
-const Notif = require('../models/NotifModel');
 const Outcome = require('../models/OutcomeModel');
 const ProgChecklist = require('../models/ProgChecklistModel');
 const Program = require('../models/ProgramModel');
-const PublicUser = require('../models/PublicUserModel');
 const Resource = require('../models/ResourceModel');
+const UserProg = require('../models/UserProgModel');
+
+// CovID Mongo Model Imports
+const AdminUser = require('../models/AdminUserModel');
+const Case = require('../models/CaseModel');
+const Notif = require('../models/NotifModel');
+const PublicUser = require('../models/PublicUserModel');
 const Symptom = require('../models/SymptomModel');
 const UserCov = require('../models/UserCovModel');
-const UserProg = require('../models/UserProgModel');
 
 
 function forceJSON(e) {
@@ -42,12 +45,9 @@ async function genOrderCode(ordType) {
  */
 const cpController = {
 	getHome: async function(req, res) {
-		let products = await db.findMany(Product, {});
-		res.render('dashboard', {
-			title: 'Dashboard',
-			name: req.session.user.name,
-			products: products
-		});
+		let admins = await db.findMany(Admin, {});
+		console.log(admins);
+		res.send("hi");
 	},
 	
 	getLogin: function(req, res) {
