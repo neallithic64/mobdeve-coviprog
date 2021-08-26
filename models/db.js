@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-// const url = ;
+const url = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@covprog.blati.mongodb.net/CovProg?retryWrites=true&w=majority`;
 
 const options = {
 	useUnifiedTopology: true,
