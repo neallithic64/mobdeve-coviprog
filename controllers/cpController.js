@@ -129,7 +129,7 @@ const cpController = {
 				status: "Pending"
 			};
 			await db.insertOne(Program, newProg);
-			res.status(200).send();
+			res.status(201).send("Program created!");
 		} catch (e) {
 			res.status(500).send(e);
 		}
