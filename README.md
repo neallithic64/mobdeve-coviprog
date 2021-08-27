@@ -1,7 +1,7 @@
 # MOBDEVE CovIProg
-Welcome to the Public-But-Not-So-Public API of CovIProg! This is a joint project of CovID and ProgramPlan to create a singular database server for both projects. This makes use of a REST API to function, therefore there will be no views. This is purely for educational purposes only.
+Welcome to the Public-But-Not-So-Public API of **CovIProg**! This is a joint project of CovID and ProgramPlan to create a singular database server for both projects. This makes use of a REST API to function, therefore there will be no views. This is purely for educational purposes only.
 
-Status: [![Heroku App Status](http://heroku-shields.herokuapp.com/covid-progplan)](https://covid-progplan.herokuapp.com)
+**Status:** [![Heroku App Status](http://heroku-shields.herokuapp.com/covid-progplan)](https://covid-progplan.herokuapp.com)
 
 ## Usage
 This API is deployed on [Heroku](https://covid-progplan.herokuapp.com/). However, you'll soon notice that, when opening the link, it only shows you a single line. This is intentional. The API has routes to be accessed via an HTTP Request for any functionality may be done.
