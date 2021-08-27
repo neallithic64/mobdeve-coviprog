@@ -24,13 +24,11 @@ function forceJSON(e) {
 	return JSON.parse(JSON.stringify(e));
 }
 
-async function genItemCode(itGroup) {
-	// format: XX-YYYYYY
-	// XX: item group code (use index, pad 2 digits)
-	let itemGrp = await db.findOne(ItemGroup, {_id: itGroup});
-	// YY: sequential number
-	let prodCount = await db.findMany(Product, {itemGroup: itGroup});
-	return itemGrp.index.toString().padStart(2, '0') + '-' + prodCount.length.toString().padStart(6, '0');
+async function genProgId() {
+	// format: PRXXXXX
+	// XX: zero-indexed, 5-padded count of Programs
+	let progCount = await db.findMany(Program, {});
+	return "PR" + progCount.length.toString().padStart(5, '0');
 }
 
 async function genOrderCode(ordType) {
@@ -113,6 +111,27 @@ const cpController = {
 			}
 		} catch (e) {
 			res.status(500).send('Server error.');
+		}
+	},
+	
+	postProCreateProg: async function(req, res) {
+		try {
+			let {userEmail, programTitle, startDate, endDate, street, city} = req.body;
+			let newProg = {
+				programId: genProgId(),
+				userCreated: userEmail,
+				programTitle: programTitle,
+				startDate: new Date(startDate),
+				endDate: new Date(endDate),
+				street: street,
+				city: city,
+				progress: 0,
+				status: "Pending"
+			};
+			await db.insertOne(Program, newProg);
+			res.status(200).send();
+		} catch (e) {
+			res.status(500).send(e);
 		}
 	}
 };

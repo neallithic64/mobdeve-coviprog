@@ -20,6 +20,7 @@ router.get("/api/progp/getProgs", cpController.getProProgList);
 // router.post("/api/covid/something", cpController.post...);
 
 router.post("/api/progp/adduser", cpController.postProAddUser);
+router.post("/api/progp/addprog", cpController.postProCreateProg);
 
 // error route
 router.get("*", function(req, res) {
