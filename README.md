@@ -12,7 +12,7 @@ The API's route is exposed through `/api/PROJECT/METHOD`. `PROJECT` may be repla
 There is no authentication measures in place, sadly, with the lack of time. Not to worry, there is expected to be **no** sensitive data present on this server. There will only be dummy data present.
 
 ## For Android Applications
-As making an HTTP request on Android through Java will be nighly difficult, we suggest you use [GSON](https://github.com/google/gson) and [RetroFit](https://square.github.io/retrofit/) in conjunction with your application to complete such requests in a JSON manner.
+As making an HTTP request on Android through Java will be nigh difficult, you are suggested to use [GSON](https://github.com/google/gson) and [RetroFit](https://square.github.io/retrofit/) in conjunction with your application to complete such requests in a JSON manner.
 
 ## Credits
 Made by the Captain Stone team: Estella, Garcia, Ho, Lim 💓💓💓
