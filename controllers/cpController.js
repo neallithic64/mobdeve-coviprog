@@ -54,6 +54,14 @@ const cpController = {
 		res.status(201).send("Welcome to the CovID API!");
 	},
 	
+	getCovTest: async function(req, res) {
+		let obj = {
+			code: 200,
+			hello: "hi"
+		};
+		res.status(201).send(obj);
+	},
+	
 	getProHome: async function(req, res) {
 		res.status(201).send("Welcome to the ProgramPlan API!");
 	},
@@ -65,6 +73,10 @@ const cpController = {
 		} catch (e) {
 			res.status(500).send(e);
 		}
+	},
+	
+	postCovLogin: async function(req, res) {
+
 	}
 };
 
