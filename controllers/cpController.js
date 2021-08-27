@@ -77,6 +77,10 @@ const cpController = {
 		res.status(201).send(progs);
 	},
 	
+	getProFilterProgs: async function(req, res) {
+		// TODO: req.query
+	},
+	
 	getSupplOrds: async function(req, res) {
 		try {
 			let items = await db.findMany(Product, {supplier: req.query.supplier}, 'prodName');
@@ -102,7 +106,7 @@ const cpController = {
 			if (!userMatch) res.status(400).send('Incorrect credentials!');
 			else {
 				let compare = await bcrypt.compare(password, userMatch.password);
-				if (compare) res.status(200).send('Welcome!');
+				if (compare) res.status(201).send('Welcome!');
 				else res.status(400).send('Incorrect credentials!');
 			}
 		} catch (e) {
@@ -124,7 +128,7 @@ const cpController = {
 					city: city
 				};
 				await db.insertOne(UserProg, newUser);
-				res.status(200).send();
+				res.status(201).send();
 			}
 		} catch (e) {
 			res.status(500).send('Server error.');

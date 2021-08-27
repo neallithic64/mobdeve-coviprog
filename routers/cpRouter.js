@@ -13,7 +13,8 @@ router.get("/api/covid/", cpController.getCovHome);
 router.get("/api/covid/test", cpController.getCovTest);
 
 router.get("/api/progp/", cpController.getProHome);
-router.get("/api/progp/getProgs", cpController.getProProgList);
+router.get("/api/progp/getprogs", cpController.getProProgList);
+router.get("/api/progp/getprogs*", cpController.getProFilterProgs);
 
 
 // POST routes
@@ -21,6 +22,7 @@ router.get("/api/progp/getProgs", cpController.getProProgList);
 
 router.post("/api/progp/adduser", cpController.postProAddUser);
 router.post("/api/progp/addprog", cpController.postProCreateProg);
+router.post("/api/progp/editprog", cpController.postProEditProg);
 
 // error route
 router.get("*", function(req, res) {
