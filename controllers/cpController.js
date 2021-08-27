@@ -116,6 +116,7 @@ const cpController = {
 	
 	postProCreateProg: async function(req, res) {
 		try {
+			console.log(req.body);
 			let {userEmail, programTitle, startDate, endDate, street, city} = req.body;
 			let newProg = {
 				programId: genProgId(),
@@ -131,6 +132,7 @@ const cpController = {
 			await db.insertOne(Program, newProg);
 			res.status(200).send();
 		} catch (e) {
+			console.log(e);
 			res.status(500).send(e);
 		}
 	}
