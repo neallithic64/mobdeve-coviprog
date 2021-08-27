@@ -75,8 +75,19 @@ const cpController = {
 		}
 	},
 	
-	postCovLogin: async function(req, res) {
-
+	postProLogin: async function(req, res) {
+		let {email, password} = req.body;
+		try {
+			let userMatch = await db.findOne(UserProg, {email: email});
+			if (!userMatch) res.status(400).send('Incorrect credentials!');
+			else {
+				let compare = await bcrypt.compare(password, userMatch.password);
+				if (compare) res.status(200).send('Welcome!');
+				else res.status(400).send('Incorrect credentials!');
+			}
+		} catch (e) {
+			res.status(500).send('Server error.');
+		}
 	}
 };
 
