@@ -95,7 +95,32 @@ const cpController = {
 	**/
 	
 	//		COVID POST METHODS
-	
+	postCovAddPubUser: async function(req, res) {
+		let {password, firstName, lastName, email, birthday, phone, street, barangay, city, province} = req.body;
+		try {
+			let hash = await bcrypt.hash(password, saltRounds);
+			let newUser = {
+				// userId: Number,
+				email: email,
+				password: Hidden,
+				firstName: firstName,
+				lastName: lastName
+			}, newPubUser = {
+				email: email,
+				birthday: new Date(birthday),
+				phone: phone,
+				street: street,
+				barangay: barangay,
+				city: city,
+				province: province
+			};
+			await db.insertOne(UserCov, newUser);
+			await db.insertOne(PublicUser, newPubUser);
+			res.status(200).send();
+		} catch (e) {
+			
+		}
+	},
 	
 	//		PROGPLAN POST METHODS
 	

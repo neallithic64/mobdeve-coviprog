@@ -18,7 +18,7 @@ router.get("/api/progp/getprogs*", cpController.getProFilterProgs);
 
 
 // POST routes
-// router.post("/api/covid/something", cpController.post...);
+router.post("/api/covid/addpubuser", cpController.postCovAddPubUser);
 
 router.post("/api/progp/adduser", cpController.postProAddUser);
 router.post("/api/progp/addprog", cpController.postProCreateProg);
