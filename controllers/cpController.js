@@ -66,6 +66,11 @@ const cpController = {
 		res.status(201).send("Welcome to the ProgramPlan API!");
 	},
 	
+	getProProgList: async function(req, res) {
+		let progs = await db.findMany(Program, {});
+		res.status(201).send(progs);
+	},
+	
 	getSupplOrds: async function(req, res) {
 		try {
 			let items = await db.findMany(Product, {supplier: req.query.supplier}, 'prodName');
@@ -84,6 +89,27 @@ const cpController = {
 				let compare = await bcrypt.compare(password, userMatch.password);
 				if (compare) res.status(200).send('Welcome!');
 				else res.status(400).send('Incorrect credentials!');
+			}
+		} catch (e) {
+			res.status(500).send('Server error.');
+		}
+	},
+	
+	postProAddUser: async function(req, res) {
+		let {email, username, password, city} = req.body;
+		try {
+			let userMatch = await db.findOne(UserProg, {email: email});
+			if (userMatch) res.status(400).send('User already exists!');
+			else {
+				let hash = await bcrypt.hash(password, saltRounds);
+				let newUser = {
+					email: email,
+					username: username,
+					password: hash,
+					city: city
+				};
+				await db.insertOne(UserProg, newUser);
+				res.status(200).send();
 			}
 		} catch (e) {
 			res.status(500).send('Server error.');
