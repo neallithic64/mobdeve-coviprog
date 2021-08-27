@@ -5,9 +5,19 @@ const cpController = require("../controllers/cpController");
 // sandboxing routes
 
 
+/* router.get("/api", cpController.getAPI);
+	API path formatting:
+	/api/covid/...
+	/api/progp/...
+*/
+
 // GET routes
 router.get("/", cpController.getHome);
-// router.get("/api", cpController.getAPI);
+router.get("/api", cpController.getHome);
+
+router.get("/api/covid/", cpController.getCovHome);
+
+router.get("/api/progp/", cpController.getProHome);
 
 
 // POST routes

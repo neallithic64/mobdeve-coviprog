@@ -17,6 +17,8 @@ const PublicUser = require('../models/PublicUserModel');
 const Symptom = require('../models/SymptomModel');
 const UserCov = require('../models/UserCovModel');
 
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 
 function forceJSON(e) {
 	return JSON.parse(JSON.stringify(e));
@@ -45,16 +47,15 @@ async function genOrderCode(ordType) {
  */
 const cpController = {
 	getHome: async function(req, res) {
-		let admins = await db.findMany(Admin, {});
-		console.log(admins);
-		res.send("hi");
+		res.status(201).send("Yup, API is working. Welcome!");
 	},
 	
-	getLogin: function(req, res) {
-		if (req.session.user) res.redirect('/');
-		else res.render('login', {
-			title: 'Login'
-		});
+	getCovHome: async function(req, res) {
+		res.status(201).send("Welcome to the CovID API!");
+	},
+	
+	getProHome: async function(req, res) {
+		res.status(201).send("Welcome to the ProgramPlan API!");
 	},
 	
 	getSupplOrds: async function(req, res) {
