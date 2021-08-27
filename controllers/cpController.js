@@ -118,7 +118,7 @@ const cpController = {
 		try {
 			let {userEmail, programTitle, startDate, endDate, street, city} = req.body;
 			let newProg = {
-				programId: genProgId(),
+				programId: await genProgId(),
 				userCreated: userEmail,
 				programTitle: programTitle,
 				startDate: new Date(startDate),
