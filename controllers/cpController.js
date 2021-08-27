@@ -44,9 +44,15 @@ async function genOrderCode(ordType) {
 /* Index Functions
  */
 const cpController = {
+	/**
+			GET METHODS
+	**/
+	
 	getHome: async function(req, res) {
 		res.status(201).send("Yup, API is working. Welcome!");
 	},
+	
+	//		COVID GET METHODS
 	
 	getCovHome: async function(req, res) {
 		res.status(201).send("Welcome to the CovID API!");
@@ -59,6 +65,8 @@ const cpController = {
 		};
 		res.status(201).send(obj);
 	},
+	
+	//		PROGPLAN GET METHODS
 	
 	getProHome: async function(req, res) {
 		res.status(201).send("Welcome to the ProgramPlan API!");
@@ -77,6 +85,15 @@ const cpController = {
 			res.status(500).send(e);
 		}
 	},
+	
+	/**
+			POST METHODS
+	**/
+	
+	//		COVID POST METHODS
+	
+	
+	//		PROGPLAN POST METHODS
 	
 	postProLogin: async function(req, res) {
 		let {email, password} = req.body;
@@ -129,6 +146,22 @@ const cpController = {
 				status: "Pending"
 			};
 			await db.insertOne(Program, newProg);
+			res.status(201).send("Program created!");
+		} catch (e) {
+			res.status(500).send(e);
+		}
+	},
+	
+	postProEditProg: async function(req, res) {
+		try {
+			let {programId, startDate, endDate, street, city} = req.body;
+			let update = {
+				startDate: new Date(startDate),
+				endDate: new Date(endDate),
+				street: street,
+				city: city
+			};
+			await db.updateOne(Program, {programId: programId}, update);
 			res.status(201).send("Program created!");
 		} catch (e) {
 			res.status(500).send(e);
