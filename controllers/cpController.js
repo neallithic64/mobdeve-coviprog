@@ -118,7 +118,22 @@ const cpController = {
 			await db.insertOne(PublicUser, newPubUser);
 			res.status(200).send();
 		} catch (e) {
-			
+			res.status(500).send(e);
+		}
+	},
+	
+	postCovLogin: async function(req, res) {
+		let {email, password} = req.body;
+		try {
+			let user = await db.findOne(UserCov, {email: email});
+			if (!user) res.status(400).send("Incorrect credentials!");
+			else {
+				let compare = await bcrypt.compare(password, user.password);
+				if (compare) res.status(201).send("Welcome!");
+				else res.status(400).send("Incorrect credentials!");
+			}
+		} catch (e) {
+			res.status(500).send(e);
 		}
 	},
 	
@@ -127,12 +142,12 @@ const cpController = {
 	postProLogin: async function(req, res) {
 		let {email, password} = req.body;
 		try {
-			let userMatch = await db.findOne(UserProg, {email: email});
-			if (!userMatch) res.status(400).send('Incorrect credentials!');
+			let user = await db.findOne(UserProg, {email: email});
+			if (!user) res.status(400).send("Incorrect credentials!");
 			else {
-				let compare = await bcrypt.compare(password, userMatch.password);
-				if (compare) res.status(201).send('Welcome!');
-				else res.status(400).send('Incorrect credentials!');
+				let compare = await bcrypt.compare(password, user.password);
+				if (compare) res.status(201).send("Welcome!");
+				else res.status(400).send("Incorrect credentials!");
 			}
 		} catch (e) {
 			res.status(500).send('Server error.');
