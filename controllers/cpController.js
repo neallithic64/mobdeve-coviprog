@@ -296,6 +296,18 @@ const cpController = {
 		} catch (e) {
 			res.status(500).send(e);
 		}
+	},
+	
+	postProEvalProg: async function(req, res) {
+		let {programId, resources, outcomes, comments} = req.body;
+		for (let i = 0; i < resources.length; i++) {
+			let arr = resources[i].split("+"), update = {
+				// something
+			};
+		}
+		for (let i = 0; i < otucomes.length; i++) {
+			
+		}
 	}
 };
 

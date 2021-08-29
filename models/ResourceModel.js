@@ -3,7 +3,6 @@ var mongoose = require('mongoose');
 var ResourceSchema = new mongoose.Schema({
 	resourceName: String,
 	programId: String,
-	unit: String,
 	expectedAmt: Number,
 	actualAmt: Number
 });
