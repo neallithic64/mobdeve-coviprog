@@ -140,20 +140,20 @@ const cpController = {
 			{"$match": {programId: req.query.id}},
 			{"$lookup": {
 				"from": "OUTCOMES",
-				"localField": "programID",
-				"foreignField": "programID",
+				"localField": "programId",
+				"foreignField": "programId",
 				"as": "Outcomes"
 			}},
 			{"$lookup": {
 				"from": "PROGRESS_CHECKLISTS",
-				"localField": "programID",
-				"foreignField": "programID",
+				"localField": "programId",
+				"foreignField": "programId",
 				"as": "Checklists"
 			}},
 			{"$lookup": {
 				"from": "RESOURCES",
-				"localField": "programID",
-				"foreignField": "programID",
+				"localField": "programId",
+				"foreignField": "programId",
 				"as": "Resources"
 			}}
 		];
