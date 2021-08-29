@@ -45,11 +45,18 @@ async function genCovNotifId() {
 	return 400000 + notiCount.length;
 }
 
-async function genProgId() {
+async function genProProgId() {
 	// format: PRXXXXX
 	// XX: zero-indexed, 5-padded count of Programs
 	let progCount = await db.findMany(Program, {});
 	return "PR" + progCount.length.toString().padStart(5, "0");
+}
+
+async function genProFeedbackId() {
+	// format: FBXXXXX
+	// XX: zero-indexed, 5-padded count of Programs
+	let feedCount = await db.findMany(Feedback, {});
+	return "FB" + feedCount.length.toString().padStart(5, "0");
 }
 
 
@@ -364,7 +371,7 @@ const cpController = {
 		try {
 			let {userEmail, programTitle, startDate, endDate, street, city} = req.body;
 			let newProg = {
-				programId: await genProgId(),
+				programId: await genProProgId(),
 				userCreated: userEmail,
 				programTitle: programTitle,
 				startDate: new Date(startDate),
