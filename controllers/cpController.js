@@ -79,6 +79,36 @@ const cpController = {
 		res.status(200).send(obj);
 	},
 	
+	getCovCaseList: async function(req, res) {
+		try {
+			let cases = await db.findMany(Case, {});
+			res.status(200).send(cases);
+		} catch (e) {
+			console.log(e);
+			res.status(500).send("Server error.");
+		}
+	},
+	
+	getCovCaseDetail: async function(req, res) {
+		let pipes = [
+			{"$match": {caseId: req.query.id}},
+			{"$lookup": {
+				"from": "SYMPTOMS",
+				"localField": "caseId",
+				"foreignField": "caseId",
+				"as": "Symptoms"
+			}}
+		];
+		try {
+			let queries = await db.aggregate(Case, pipes);
+			if (queries.length === 0) res.status(200).send([]);
+			else res.status(200).send(queries[0]);
+		} catch (e) {
+			console.log(e);
+			res.status(500).send("Server error.");
+		}
+	},
+	
 	//		PROGPLAN GET METHODS
 	
 	getProHome: async function(req, res) {
@@ -104,7 +134,7 @@ const cpController = {
 	
 	getProProgDetail: async function(req, res) {
 		let pipes = [
-			{"$match": {programID: req.query.id}},
+			{"$match": {programId: req.query.id}},
 			{"$lookup": {
 				"from": "OUTCOMES",
 				"localField": "programID",
