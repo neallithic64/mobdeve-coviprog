@@ -24,6 +24,11 @@ function forceJSON(e) {
 	return JSON.parse(JSON.stringify(e));
 }
 
+async function genCovUserId() {
+	let userCount = await db.findMany(UserCov, {});
+	return 100000 + userCount.length;
+}
+
 async function genProgId() {
 	// format: PRXXXXX
 	// XX: zero-indexed, 5-padded count of Programs
@@ -95,12 +100,13 @@ const cpController = {
 	**/
 	
 	//		COVID POST METHODS
-	postCovAddPubUser: async function(req, res) {
+	
+	postCovAddPublic: async function(req, res) {
 		let {password, firstName, lastName, email, birthday, phone, street, barangay, city, province} = req.body;
 		try {
 			let hash = await bcrypt.hash(password, saltRounds);
 			let newUser = {
-				// userId: Number,
+				userId: await genCovUserId(),
 				email: email,
 				password: Hidden,
 				firstName: firstName,
@@ -118,6 +124,28 @@ const cpController = {
 			await db.insertOne(PublicUser, newPubUser);
 			res.status(200).send();
 		} catch (e) {
+			res.status(500).send(e);
+		}
+	},
+	
+	postCovAddAdmin: async function(req, res) {
+		let {email, password, firstName, lastName} = req.body;
+		try {
+			let hash = await bcrypt.hash(password, saltRounds);
+			let newUser = {
+				userId: await genCovUserId(),
+				email: email,
+				password: hash,
+				firstName: firstName,
+				lastName: lastName
+			}, newAdUser = {
+				email: email
+			};
+			await db.insertOne(UserCov, newUser);
+			await db.insertOne(AdminUser, newAdUser);
+			res.status(200).send();
+		} catch (e) {
+			console.log(e);
 			res.status(500).send(e);
 		}
 	},
@@ -168,6 +196,26 @@ const cpController = {
 					city: city
 				};
 				await db.insertOne(UserProg, newUser);
+				res.status(201).send();
+			}
+		} catch (e) {
+			res.status(500).send('Server error.');
+		}
+	},
+	
+	postProAddAdmin: async function(req, res) {
+		let {email, username, password} = req.body;
+		try {
+			let userMatch = await db.findOne(Admin , {email: email});
+			if (userMatch) res.status(400).send('User already exists!');
+			else {
+				let hash = await bcrypt.hash(password, saltRounds);
+				let newUser = {
+					email: email,
+					username: username,
+					password: hash
+				};
+				await db.insertOne(Admin, newUser);
 				res.status(201).send();
 			}
 		} catch (e) {
