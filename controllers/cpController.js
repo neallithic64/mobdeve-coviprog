@@ -266,6 +266,9 @@ const cpController = {
 				};
 				await db.insertOne(Symptom, newSymp);
 			}
+			
+			// TODO: new notif
+			await db.insertOne(Notif, {});
 			res.status(200).send("Case submitted!");
 		} catch (e) {
 			console.log(e);
@@ -277,6 +280,8 @@ const cpController = {
 		let {caseId, newStatus} = req.body;
 		try {
 			await db.updateOne(Case, {caseId: caseId}, {caseStatus: newStatus});
+			// TODO: new notif
+			await db.insertOne(Notif, {});
 			res.status(200).send("Case status updated!");
 		} catch (e) {
 			console.log(e);
