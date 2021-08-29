@@ -8,6 +8,8 @@ This API is deployed on [Heroku](https://covid-progplan.herokuapp.com/). However
 
 The API's route is exposed through `/api/PROJECT/METHOD`. `PROJECT` may be replaced with either `covid` for CovID-related methods, or `progp` for ProgramPlan-related methods. Then, `METHOD` will be changed to the respective method route name.
 
+A note: don't forget to set your `Content-Type` request header to `application/json`. This is especially true when using `XMLHttpRequest` to make your requests (like Neal is). Just call `.setRequestHeader("Content-Type", "application/json");`, then probably do `JSON.stringify()` to be extra sure.
+
 ## Security
 There is no authentication measures in place, sadly, with the lack of time. Not to worry, there is expected to be **no** sensitive data present on this server. There will only be dummy data present.
 
