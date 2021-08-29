@@ -8,7 +8,8 @@ router.get("/", cpController.getHome);
 router.get("/api", cpController.getHome);
 
 router.get("/api/covid/", cpController.getCovHome);
-router.get("/api/covid/test", cpController.getCovTest);
+router.get("/api/covid/cases", cpController.getCovCaseList);
+router.get("/api/covid/casedeets*", cpController.getCovCaseDetail);
 
 router.get("/api/progp/", cpController.getProHome);
 router.get("/api/progp/getprogs", cpController.getProProgList);

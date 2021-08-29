@@ -71,14 +71,6 @@ const cpController = {
 		res.status(200).send("Welcome to the CovID API!");
 	},
 	
-	getCovTest: async function(req, res) {
-		let obj = {
-			code: 200,
-			hello: "hi"
-		};
-		res.status(200).send(obj);
-	},
-	
 	getCovCaseList: async function(req, res) {
 		try {
 			let cases = await db.findMany(Case, {});
