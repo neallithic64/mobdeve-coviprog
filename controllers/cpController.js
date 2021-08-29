@@ -54,13 +54,13 @@ const cpController = {
 	**/
 	
 	getHome: async function(req, res) {
-		res.status(201).send("Yup, API is working. Welcome!");
+		res.status(200).send("Yup, API is working. Welcome!");
 	},
 	
 	//		COVID GET METHODS
 	
 	getCovHome: async function(req, res) {
-		res.status(201).send("Welcome to the CovID API!");
+		res.status(200).send("Welcome to the CovID API!");
 	},
 	
 	getCovTest: async function(req, res) {
@@ -68,18 +68,18 @@ const cpController = {
 			code: 200,
 			hello: "hi"
 		};
-		res.status(201).send(obj);
+		res.status(200).send(obj);
 	},
 	
 	//		PROGPLAN GET METHODS
 	
 	getProHome: async function(req, res) {
-		res.status(201).send("Welcome to the ProgramPlan API!");
+		res.status(200).send("Welcome to the ProgramPlan API!");
 	},
 	
 	getProProgList: async function(req, res) {
 		let progs = await db.findMany(Program, {});
-		res.status(201).send(progs);
+		res.status(200).send(progs);
 	},
 	
 	getProFilterProgs: async function(req, res) {
@@ -195,7 +195,7 @@ const cpController = {
 			if (!user) res.status(400).send("Incorrect credentials!");
 			else {
 				let compare = await bcrypt.compare(password, user.password);
-				if (compare) res.status(201).send("Welcome!");
+				if (compare) res.status(200).send("Welcome!");
 				else res.status(400).send("Incorrect credentials!");
 			}
 		} catch (e) {
@@ -212,7 +212,7 @@ const cpController = {
 			if (!user) res.status(400).send("Incorrect credentials!");
 			else {
 				let compare = await bcrypt.compare(password, user.password);
-				if (compare) res.status(201).send("Welcome!");
+				if (compare) res.status(200).send("Welcome!");
 				else res.status(400).send("Incorrect credentials!");
 			}
 		} catch (e) {
@@ -234,7 +234,7 @@ const cpController = {
 					city: city
 				};
 				await db.insertOne(UserProg, newUser);
-				res.status(201).send();
+				res.status(200).send();
 			}
 		} catch (e) {
 			res.status(500).send("Server error.");
@@ -254,7 +254,7 @@ const cpController = {
 					password: hash
 				};
 				await db.insertOne(Admin, newUser);
-				res.status(201).send();
+				res.status(200).send();
 			}
 		} catch (e) {
 			res.status(500).send("Server error.");
@@ -276,7 +276,7 @@ const cpController = {
 				status: "Pending"
 			};
 			await db.insertOne(Program, newProg);
-			res.status(201).send("Program created!");
+			res.status(200).send("Program created!");
 		} catch (e) {
 			res.status(500).send(e);
 		}
@@ -292,7 +292,7 @@ const cpController = {
 				city: city
 			};
 			await db.updateOne(Program, {programId: programId}, update);
-			res.status(201).send("Program created!");
+			res.status(200).send("Program created!");
 		} catch (e) {
 			res.status(500).send(e);
 		}
