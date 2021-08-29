@@ -255,6 +255,7 @@ const cpController = {
 				dateSubmitted: new Date()
 			};
 			await db.insertOne(Case, newCase);
+			
 			// draft for case symptoms recording:
 			for (let i = 0; i < symptoms.length; i++) {
 				let arr = symptoms[i].split("+"), newSymp = {
@@ -265,6 +266,17 @@ const cpController = {
 				await db.insertOne(Symptom, newSymp);
 			}
 			res.status(200).send("Case submitted!");
+		} catch (e) {
+			console.log(e);
+			res.status(500).send("Server error.");
+		}
+	},
+	
+	postCovEditCase: async function(req, res) {
+		let {caseId, newStatus} = req.body;
+		try {
+			await db.updateOne(Case, {caseId: caseId}, {caseStatus: newStatus});
+			res.status(200).send("Case status updated!");
 		} catch (e) {
 			console.log(e);
 			res.status(500).send("Server error.");
@@ -364,7 +376,7 @@ const cpController = {
 				city: city
 			};
 			await db.updateOne(Program, {programId: programId}, update);
-			res.status(200).send("Program created!");
+			res.status(200).send("Program edited!");
 		} catch (e) {
 			console.log(e);
 			res.status(500).send("Server error.");
