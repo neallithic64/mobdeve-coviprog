@@ -54,7 +54,7 @@ async function genProProgId() {
 
 async function genProFeedbackId() {
 	// format: FBXXXXX
-	// XX: zero-indexed, 5-padded count of Programs
+	// XX: zero-indexed, 5-padded count of Feedbacks
 	let feedCount = await db.findMany(Feedback, {});
 	return "FB" + feedCount.length.toString().padStart(5, "0");
 }
