@@ -102,6 +102,16 @@ const cpController = {
 		}
 	},
 	
+	getCovNotifList: async function(req, res) {
+		try {
+			let notifs = await db.findMany(Notif, {receiverEmail: req.query.receiverEmail});
+			res.status(200).send(notifs);
+		} catch (e) {
+			console.log(e);
+			res.status(500).send("Server error.");
+		}
+	},
+	
 	//		PROGPLAN GET METHODS
 	
 	getProHome: async function(req, res) {

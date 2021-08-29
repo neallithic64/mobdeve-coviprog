@@ -10,6 +10,7 @@ router.get("/api", cpController.getHome);
 router.get("/api/covid/", cpController.getCovHome);
 router.get("/api/covid/cases", cpController.getCovCaseList);
 router.get("/api/covid/casedeets?*", cpController.getCovCaseDetail);
+router.get("/api/covid/notifs?*", cpController.getCovNotifList);
 
 router.get("/api/progp/", cpController.getProHome);
 router.get("/api/progp/progs", cpController.getProProgList);
