@@ -24,9 +24,25 @@ function forceJSON(e) {
 	return JSON.parse(JSON.stringify(e));
 }
 
+/* A note on CovID IDs:
+	All IDs for Users, Cases, and Notifs will be 6 digit integers. The leading digit
+	designates the kind of model. Users have 1, Cases have 2, and Notifs have 4. The
+	succeeding 5 digits are counted in sequential order.
+ */
+
 async function genCovUserId() {
 	let userCount = await db.findMany(UserCov, {});
 	return 100000 + userCount.length;
+}
+
+async function genCovCaseId() {
+	let caseCount = await db.findMany(Case, {});
+	return 200000 + caseCount.length;
+}
+
+async function genCovNotifId() {
+	let notiCount = await db.findMany(Notif, {});
+	return 400000 + notiCount.length;
 }
 
 async function genProgId() {
@@ -35,6 +51,8 @@ async function genProgId() {
 	let progCount = await db.findMany(Program, {});
 	return "PR" + progCount.length.toString().padStart(5, "0");
 }
+
+
 
 /* Index Functions
  */
