@@ -1,21 +1,21 @@
-const db = require('../models/db');
+const db = require("../models/db");
 
 // ProgramPlan Mongo Model Imports
-const Admin = require('../models/AdminModel');
-const Feedback = require('../models/FeedbackModel');
-const Outcome = require('../models/OutcomeModel');
-const ProgChecklist = require('../models/ProgChecklistModel');
-const Program = require('../models/ProgramModel');
-const Resource = require('../models/ResourceModel');
-const UserProg = require('../models/UserProgModel');
+const Admin = require("../models/AdminModel");
+const Feedback = require("../models/FeedbackModel");
+const Outcome = require("../models/OutcomeModel");
+const ProgChecklist = require("../models/ProgChecklistModel");
+const Program = require("../models/ProgramModel");
+const Resource = require("../models/ResourceModel");
+const UserProg = require("../models/UserProgModel");
 
 // CovID Mongo Model Imports
-const AdminUser = require('../models/AdminUserModel');
-const Case = require('../models/CaseModel');
-const Notif = require('../models/NotifModel');
-const PublicUser = require('../models/PublicUserModel');
-const Symptom = require('../models/SymptomModel');
-const UserCov = require('../models/UserCovModel');
+const AdminUser = require("../models/AdminUserModel");
+const Case = require("../models/CaseModel");
+const Notif = require("../models/NotifModel");
+const PublicUser = require("../models/PublicUserModel");
+const Symptom = require("../models/SymptomModel");
+const UserCov = require("../models/UserCovModel");
 
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
@@ -33,7 +33,7 @@ async function genProgId() {
 	// format: PRXXXXX
 	// XX: zero-indexed, 5-padded count of Programs
 	let progCount = await db.findMany(Program, {});
-	return "PR" + progCount.length.toString().padStart(5, '0');
+	return "PR" + progCount.length.toString().padStart(5, "0");
 }
 
 async function genOrderCode(ordType) {
@@ -213,7 +213,7 @@ const cpController = {
 				else res.status(400).send("Incorrect credentials!");
 			}
 		} catch (e) {
-			res.status(500).send('Server error.');
+			res.status(500).send("Server error.");
 		}
 	},
 	
@@ -221,7 +221,7 @@ const cpController = {
 		let {email, username, password, city} = req.body;
 		try {
 			let userMatch = await db.findOne(UserProg, {email: email});
-			if (userMatch) res.status(400).send('User already exists!');
+			if (userMatch) res.status(400).send("User already exists!");
 			else {
 				let hash = await bcrypt.hash(password, saltRounds);
 				let newUser = {
@@ -234,7 +234,7 @@ const cpController = {
 				res.status(201).send();
 			}
 		} catch (e) {
-			res.status(500).send('Server error.');
+			res.status(500).send("Server error.");
 		}
 	},
 	
@@ -242,7 +242,7 @@ const cpController = {
 		let {email, username, password} = req.body;
 		try {
 			let userMatch = await db.findOne(Admin , {email: email});
-			if (userMatch) res.status(400).send('User already exists!');
+			if (userMatch) res.status(400).send("User already exists!");
 			else {
 				let hash = await bcrypt.hash(password, saltRounds);
 				let newUser = {
@@ -254,7 +254,7 @@ const cpController = {
 				res.status(201).send();
 			}
 		} catch (e) {
-			res.status(500).send('Server error.');
+			res.status(500).send("Server error.");
 		}
 	},
 	
