@@ -23,6 +23,7 @@ router.post("/api/covid/addadminuser", cpController.postCovAddAdmin);
 
 router.post("/api/progp/login", cpController.postProLogin);
 router.post("/api/progp/adduser", cpController.postProAddUser);
+router.post("/api/progp/addadmin", cpController.postProAddAdmin);
 router.post("/api/progp/addprog", cpController.postProCreateProg);
 router.post("/api/progp/editprog", cpController.postProEditProg);
 router.post("/api/progp/evalprog", cpController.postProEvalProg);

@@ -121,7 +121,8 @@ const cpController = {
 			let items = await db.findMany(Product, {supplier: req.query.supplier}, "prodName");
 			res.status(200).send(forceJSON(items));
 		} catch (e) {
-			res.status(500).send(e);
+			console.log(e);
+			res.status(500).send("Server error.");
 		}
 	},
 	
@@ -158,7 +159,8 @@ const cpController = {
 				res.status(200).send();
 			}
 		} catch (e) {
-			res.status(500).send(e);
+			console.log(e);
+			res.status(500).send("Server error.");
 		}
 	},
 	
@@ -184,7 +186,7 @@ const cpController = {
 			}
 		} catch (e) {
 			console.log(e);
-			res.status(500).send(e);
+			res.status(500).send("Server error.");
 		}
 	},
 	
@@ -199,7 +201,8 @@ const cpController = {
 				else res.status(400).send("Incorrect credentials!");
 			}
 		} catch (e) {
-			res.status(500).send(e);
+			console.log(e);
+			res.status(500).send("Server error.");
 		}
 	},
 	
@@ -216,6 +219,7 @@ const cpController = {
 				else res.status(400).send("Incorrect credentials!");
 			}
 		} catch (e) {
+			console.log(e);
 			res.status(500).send("Server error.");
 		}
 	},
@@ -237,6 +241,7 @@ const cpController = {
 				res.status(200).send();
 			}
 		} catch (e) {
+			console.log(e);
 			res.status(500).send("Server error.");
 		}
 	},
@@ -257,6 +262,7 @@ const cpController = {
 				res.status(200).send();
 			}
 		} catch (e) {
+			console.log(e);
 			res.status(500).send("Server error.");
 		}
 	},
@@ -278,7 +284,8 @@ const cpController = {
 			await db.insertOne(Program, newProg);
 			res.status(200).send("Program created!");
 		} catch (e) {
-			res.status(500).send(e);
+			console.log(e);
+			res.status(500).send("Server error.");
 		}
 	},
 	
@@ -294,7 +301,8 @@ const cpController = {
 			await db.updateOne(Program, {programId: programId}, update);
 			res.status(200).send("Program created!");
 		} catch (e) {
-			res.status(500).send(e);
+			console.log(e);
+			res.status(500).send("Server error.");
 		}
 	},
 	
@@ -322,6 +330,7 @@ const cpController = {
 			await db.updateOne(Program, {programId: programId}, {comments: comments});
 			res.status(200).send("Evaluation submitted!");
 		} catch (e) {
+			console.log(e);
 			res.status(500).send("Server error.");
 		}
 	}
