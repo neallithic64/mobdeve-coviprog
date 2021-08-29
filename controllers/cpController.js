@@ -86,9 +86,36 @@ const cpController = {
 		// TODO: req.query
 	},
 	
+	getProProgDetail: async function(req, res) {
+		let pipes = [
+			{"$match": {programID: req.query.id}},
+			{"$lookup": {
+				"from": "OUTCOMES",
+				"localField": "programID",
+				"foreignField": "programID",
+				"as": "Outcomes"
+			}},
+			{"$lookup": {
+				"from": "PROGRESS_CHECKLISTS",
+				"localField": "programID",
+				"foreignField": "programID",
+				"as": "Checklists"
+			}},
+			{"$lookup": {
+				"from": "RESOURCES",
+				"localField": "programID",
+				"foreignField": "programID",
+				"as": "Resources"
+			}}
+		];
+		let queries = await db.aggregate(Programs, pipes);
+		if (queries.length === 0) res.status(200).send([]);
+		else res.status(200).send(queries[0]);
+	},
+	
 	getSupplOrds: async function(req, res) {
 		try {
-			let items = await db.findMany(Product, {supplier: req.query.supplier}, 'prodName');
+			let items = await db.findMany(Product, {supplier: req.query.supplier}, "prodName");
 			res.status(200).send(forceJSON(items));
 		} catch (e) {
 			res.status(500).send(e);

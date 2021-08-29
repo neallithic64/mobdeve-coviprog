@@ -15,6 +15,7 @@ router.get("/api/covid/test", cpController.getCovTest);
 router.get("/api/progp/", cpController.getProHome);
 router.get("/api/progp/getprogs", cpController.getProProgList);
 router.get("/api/progp/getprogs*", cpController.getProFilterProgs);
+router.get("/api/progp/getprogdeets*", cpController.getProProgDetail);
 
 
 // POST routes
