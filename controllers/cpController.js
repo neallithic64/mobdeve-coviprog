@@ -300,13 +300,29 @@ const cpController = {
 	
 	postProEvalProg: async function(req, res) {
 		let {programId, resources, outcomes, comments} = req.body;
-		for (let i = 0; i < resources.length; i++) {
-			let arr = resources[i].split("+"), update = {
-				// something
-			};
-		}
-		for (let i = 0; i < otucomes.length; i++) {
-			
+		try {
+			for (let i = 0; i < resources.length; i++) {
+				let arr = resources[i].split("+"), filter = {
+					programId: programId,
+					resourceName: arr[0]
+				}, update = {
+					actualAmt: arr[1]
+				};
+				await db.updateOne(Resource, filter, update);
+			}
+			for (let i = 0; i < outcomes.length; i++) {
+				let arr = outcomes[i].split("+"), filter = {
+					programId: programId,
+					outcomeName: arr[0]
+				}, update = {
+					actualVal: arr[1]
+				};
+				await db.updateOne(Outcome, filter, update);
+			}
+			await db.updateOne(Program, {programId: programId}, {comments: comments});
+			res.status(200).send("Evaluation submitted!");
+		} catch (e) {
+			res.status(500).send("Server error.");
 		}
 	}
 };

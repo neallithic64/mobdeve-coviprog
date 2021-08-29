@@ -27,6 +27,7 @@ router.post("/api/progp/login", cpController.postProLogin);
 router.post("/api/progp/adduser", cpController.postProAddUser);
 router.post("/api/progp/addprog", cpController.postProCreateProg);
 router.post("/api/progp/editprog", cpController.postProEditProg);
+router.post("/api/progp/evalprog", cpController.postProEvalProg);
 
 // error route
 router.get("*", function(req, res) {
