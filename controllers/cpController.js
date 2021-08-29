@@ -73,8 +73,9 @@ const cpController = {
 	
 	getCovCaseList: async function(req, res) {
 		try {
-			let cases = await db.findMany(Case, {});
-			res.status(200).send(cases);
+			let cases = await db.findMany(Case, {}),
+				responded = cases.filter(x => x.caseStatus !== "For Review" || x.caseStatus !== "Verifying");
+			res.status(200).send({cases: cases, reportedCount: cases.length, respondedCount: responded.length});
 		} catch (e) {
 			console.log(e);
 			res.status(500).send("Server error.");
