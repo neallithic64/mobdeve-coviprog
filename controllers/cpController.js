@@ -186,9 +186,12 @@ const cpController = {
 			let user = await db.findOne(UserCov, {email: email});
 			if (!user) res.status(400).send("Incorrect credentials!");
 			else {
-				let compare = await bcrypt.compare(password, user.password);
-				if (compare) res.status(200).send("Welcome!");
-				else res.status(400).send("Incorrect credentials!");
+				let compare = await bcrypt.compare(password, user.password),
+					type = await db.findOne(PublicUser, {email: email});
+				if (compare) {
+					if (type) res.status(200).send({uType: 1});
+					else res.status(200).send({uType: 2});
+				} else res.status(400).send("Incorrect credentials!");
 			}
 		} catch (e) {
 			console.log(e);
