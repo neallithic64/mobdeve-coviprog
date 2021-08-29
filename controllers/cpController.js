@@ -83,7 +83,10 @@ const cpController = {
 	},
 	
 	getProFilterProgs: async function(req, res) {
-		// TODO: req.query
+		// req.query.startDate, req.query.endDate, req.query.city
+		let pipes = [
+			// {"$xyz": something}
+		];
 	},
 	
 	getProProgDetail: async function(req, res) {
