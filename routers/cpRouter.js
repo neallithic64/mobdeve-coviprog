@@ -30,6 +30,7 @@ router.post("/api/progp/userreg", cpController.postProAddUser);
 router.post("/api/progp/adminreg", cpController.postProAddAdmin);
 router.post("/api/progp/progadd", cpController.postProCreateProg);
 router.post("/api/progp/progedit", cpController.postProEditProg);
+router.post("/api/progp/progchkl", cpController.postProProgressProg);
 router.post("/api/progp/progeval", cpController.postProEvalProg);
 
 
