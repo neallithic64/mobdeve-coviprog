@@ -36,16 +36,6 @@ async function genProgId() {
 	return "PR" + progCount.length.toString().padStart(5, "0");
 }
 
-async function genOrderCode(ordType) {
-	if (ordType === "PO") {
-		let ords = await db.findMany(PurchaseOrder, {});
-		return "PO-" + ords.length.toString().padStart(6, '0');
-	} else {
-		let ords = await db.findMany(SalesOrder, {});
-		return "SO-" + ords.length.toString().padStart(6, '0');
-	}
-}
-
 /* Index Functions
  */
 const cpController = {
@@ -114,16 +104,6 @@ const cpController = {
 		let queries = await db.aggregate(Programs, pipes);
 		if (queries.length === 0) res.status(200).send([]);
 		else res.status(200).send(queries[0]);
-	},
-	
-	getSupplOrds: async function(req, res) {
-		try {
-			let items = await db.findMany(Product, {supplier: req.query.supplier}, "prodName");
-			res.status(200).send(forceJSON(items));
-		} catch (e) {
-			console.log(e);
-			res.status(500).send("Server error.");
-		}
 	},
 	
 	/**
