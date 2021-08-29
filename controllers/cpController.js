@@ -217,6 +217,38 @@ const cpController = {
 		}
 	},
 	
+	postCovReportCase: async function(req, res) {
+		let {email, street, barangay, city, province, symptoms, remarks} = req.body;
+		let genCaseId = await genCovCaseId();
+		try {
+			let newCase = {
+				caseId: genCaseId,
+				email: email,
+				street: street,
+				barangay: barangay,
+				city: city,
+				province: province,
+				remarks: remarks,
+				caseStatus: "For Review",
+				dateSubmitted: new Date()
+			};
+			await db.insertOne(Case, newCase);
+			// draft for case symptoms recording:
+			for (let i = 0; i < symptoms.length; i++) {
+				let arr = symptoms[i].split("+"), newSymp = {
+					caseId: genCaseId,
+					sympName: arr[0],
+					sympDays: arr[1]
+				};
+				await db.insertOne(Symptom, newSymp);
+			}
+			res.status(200).send("Case submitted!");
+		} catch (e) {
+			console.log(e);
+			res.status(500).send("Server error.");
+		}
+	},
+	
 	//		PROGPLAN POST METHODS
 	
 	postProLogin: async function(req, res) {
