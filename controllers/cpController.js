@@ -68,8 +68,13 @@ const cpController = {
 	},
 	
 	getProProgList: async function(req, res) {
-		let progs = await db.findMany(Program, {});
-		res.status(200).send(progs);
+		try {
+			let progs = await db.findMany(Program, {});
+			res.status(200).send(progs);
+		} catch (e) {
+			console.log(e);
+			res.status(500).send("Server error.");
+		}
 	},
 	
 	getProFilterProgs: async function(req, res) {
@@ -101,9 +106,14 @@ const cpController = {
 				"as": "Resources"
 			}}
 		];
-		let queries = await db.aggregate(Programs, pipes);
-		if (queries.length === 0) res.status(200).send([]);
-		else res.status(200).send(queries[0]);
+		try {
+			let queries = await db.aggregate(Programs, pipes);
+			if (queries.length === 0) res.status(200).send([]);
+			else res.status(200).send(queries[0]);
+		} catch (e) {
+			console.log(e);
+			res.status(500).send("Server error.");
+		}
 	},
 	
 	/**
