@@ -101,7 +101,7 @@ const cpController = {
 		];
 		try {
 			let queries = await db.aggregate(Case, pipes);
-			if (queries.length === 0) res.status(200).send([]);
+			if (queries.length === 0) res.status(404).send("No such case found!");
 			else res.status(200).send(queries[0]);
 		} catch (e) {
 			console.log(e);
@@ -166,7 +166,7 @@ const cpController = {
 		];
 		try {
 			let queries = await db.aggregate(Programs, pipes);
-			if (queries.length === 0) res.status(200).send([]);
+			if (queries.length === 0) res.status(404).send("No such program found!");
 			else res.status(200).send(queries[0]);
 		} catch (e) {
 			console.log(e);
