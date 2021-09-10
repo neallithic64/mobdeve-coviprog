@@ -312,10 +312,18 @@ const cpController = {
 		let {email, password} = req.body;
 		try {
 			let user = await db.findOne(UserProg, {email: email});
-			if (!user) res.status(400).send("Incorrect credentials!");
+			if (!user) {
+				let admin = await db.findOne(Admin, {email: email});
+				if (!admin) res.status(400).send("Incorrect credentials!");
+				else {
+					let compA = await bcrypt.compare(password, admin.password);
+					if (compA) res.status(200).send({userType: 2, email: admin.email, username: admin.username, city: ""});
+					else res.status(400).send("Incorrect credentials!");
+				}
+			}
 			else {
-				let compare = await bcrypt.compare(password, user.password);
-				if (compare) res.status(200).send("Welcome!");
+				let compU = await bcrypt.compare(password, user.password);
+				if (compU) res.status(200).send({userType: 1, email: user.email, username: user.username, city: user.city});
 				else res.status(400).send("Incorrect credentials!");
 			}
 		} catch (e) {
