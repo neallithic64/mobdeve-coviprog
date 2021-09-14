@@ -59,6 +59,41 @@ async function genProFeedbackId() {
 	return "FB" + feedCount.length.toString().padStart(5, "0");
 }
 
+function genChecklist(programId) {
+	return [
+		{
+			progItem: "Gather resources",
+			programId: programId,
+			checked: false
+		},
+		{
+			progItem: "Mobilise manpower",
+			programId: programId,
+			checked: false
+		},
+		{
+			progItem: "Set up on site",
+			programId: programId,
+			checked: false
+		},
+		{
+			progItem: "Execute program",
+			programId: programId,
+			checked: false
+		},
+		{
+			progItem: "Gather evaluations",
+			programId: programId,
+			checked: false
+		},
+		{
+			progItem: "Egress",
+			programId: programId,
+			checked: false
+		}
+	];
+}
+
 
 
 /* Index Functions
@@ -377,9 +412,10 @@ const cpController = {
 	
 	postProCreateProg: async function(req, res) {
 		try {
-			let {userEmail, programTitle, startDate, endDate, street, city} = req.body;
+			let {userEmail, programTitle, startDate, endDate, street, city, outcomes, resources} = req.body,
+				programId = await genProProgId();
 			let newProg = {
-				programId: await genProProgId(),
+				programId: programId,
 				userCreated: userEmail,
 				programTitle: programTitle,
 				startDate: new Date(startDate),
@@ -389,7 +425,12 @@ const cpController = {
 				progress: 0,
 				status: "Pending"
 			};
+			outcomes.forEach(e => e.programId = programId);
+			resources.forEach(e => e.programId = programId);
 			await db.insertOne(Program, newProg);
+			await db.insertMany(Outcome, outcomes);
+			await db.insertMany(Resource, resources);
+			await db.insertMany(ProgChecklist, genChecklist(programId));
 			res.status(200).send("Program created!");
 		} catch (e) {
 			console.log(e);
