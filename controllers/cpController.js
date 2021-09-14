@@ -239,7 +239,7 @@ const cpController = {
 				};
 				await db.insertOne(UserCov, newUser);
 				await db.insertOne(PublicUser, newPubUser);
-				res.status(200).send();
+				res.status(200).send("Public User created!");
 			}
 		} catch (e) {
 			console.log(e);
@@ -265,7 +265,7 @@ const cpController = {
 				};
 				await db.insertOne(UserCov, newUser);
 				await db.insertOne(AdminUser, newAdUser);
-				res.status(200).send();
+				res.status(200).send("Admin User created!");
 			}
 		} catch (e) {
 			console.log(e);
@@ -381,7 +381,7 @@ const cpController = {
 					city: city
 				};
 				await db.insertOne(UserProg, newUser);
-				res.status(200).send();
+				res.status(200).send("User created!");
 			}
 		} catch (e) {
 			console.log(e);
@@ -402,7 +402,7 @@ const cpController = {
 					password: hash
 				};
 				await db.insertOne(Admin, newUser);
-				res.status(200).send();
+				res.status(200).send("Admin created!");
 			}
 		} catch (e) {
 			console.log(e);
