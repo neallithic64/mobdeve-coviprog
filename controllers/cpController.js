@@ -412,6 +412,7 @@ const cpController = {
 	
 	postProCreateProg: async function(req, res) {
 		try {
+			console.log(req.body);
 			let {userEmail, programTitle, startDate, endDate, street, city, outcomes, resources} = req.body,
 				programId = await genProProgId();
 			let newProg = {
