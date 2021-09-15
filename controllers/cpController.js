@@ -425,6 +425,10 @@ const cpController = {
 				progress: 0,
 				status: "Pending"
 			};
+
+			console.log("DATE: " + startDate + " - TO - " + endDate);
+			console.log("NEWPROG: " + newProg.startDate + " - TO - " + newProg.endDate);
+
 			outcomes.forEach(e => e.programId = programId);
 			resources.forEach(e => e.programId = programId);
 			await db.insertOne(Program, newProg);
