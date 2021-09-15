@@ -178,6 +178,7 @@ const cpController = {
 	},
 	
 	getProProgDetail: async function(req, res) {
+		console.log(req.query);
 		let pipes = [
 			{"$match": {programId: req.query.id}},
 			{"$lookup": {
@@ -201,6 +202,7 @@ const cpController = {
 		];
 		try {
 			let queries = await db.aggregate(Program, pipes);
+			console.log(queries);
 			if (queries.length === 0) res.status(404).send("No such program found!");
 			else res.status(200).send(queries[0]);
 		} catch (e) {
