@@ -476,9 +476,11 @@ const cpController = {
 				}, update = {
 					checked: req.body[i].checked
 				};
+				console.table(filter);
+				console.table(update);
 				await db.updateOne(ProgChecklist, filter, update);
 			}
-			res.status(200).send(programId + " checklist updated!");
+			res.status(200).send(req.body[0].programId + " checklist updated!");
 		} catch (e) {
 			console.log(e);
 			res.status(500).send("Server error.");
