@@ -468,6 +468,7 @@ const cpController = {
 	},
 	
 	postProProgressProg: async function(req, res) {
+		console.log(req.body);
 		let {checklist} = req.body;
 		try {
 			for (let i = 0; i < checklist.length; i++) {
