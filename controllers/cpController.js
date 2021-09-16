@@ -184,25 +184,36 @@ const cpController = {
 				"from": "outcomes",
 				"localField": "programId",
 				"foreignField": "programId",
-				"as": "Outcomes"
+				"as": "outcomes"
 			}},
 			{"$lookup": {
 				"from": "progress_checklists",
 				"localField": "programId",
 				"foreignField": "programId",
-				"as": "Checklists"
+				"as": "checklistItems"
 			}},
 			{"$lookup": {
 				"from": "resources",
 				"localField": "programId",
 				"foreignField": "programId",
-				"as": "Resources"
+				"as": "resources"
 			}}
 		];
 		try {
 			let queries = await db.aggregate(Program, pipes);
 			if (queries.length === 0) res.status(404).send("No such program found!");
-			else res.status(200).send(queries[0]);
+			else {
+				queries[0].program = {};
+				queries[0].program.programId = queries[0].programId;
+				queries[0].program.programTitle = queries[0].programTitle;
+				queries[0].program.startDate = queries[0].startDate;
+				queries[0].program.endDate = queries[0].endDate;
+				queries[0].program.street = queries[0].street;
+				queries[0].program.city = queries[0].city;
+				queries[0].program.progress = queries[0].progress;
+				queries[0].program.status = queries[0].status;
+				res.status(200).send(queries[0]);
+			}
 		} catch (e) {
 			console.log(e);
 			res.status(500).send("Server error.");
