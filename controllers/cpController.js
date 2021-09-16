@@ -468,19 +468,22 @@ const cpController = {
 	},
 	
 	postProProgressProg: async function(req, res) {
+		let listItems = req.body;
+		console.log(listItems);
 		try {
-			for (let i = 0; i < req.body.length; i++) {
+			for (let i = 0; i < listItems.length; i++) {
 				let filter = {
-					progItem: req.body[i].progItem,
-					programId: req.body[i].programId
+					progItem: listItems[i].progItem,
+					programId: listItems[i].programId
 				}, update = {
-					checked: req.body[i].checked
+					checked: listItems[i].checked
 				};
-				console.table(filter);
-				console.table(update);
+				// console.table(filter);
+				// console.table(update);
 				await db.updateOne(ProgChecklist, filter, update);
 			}
-			res.status(200).send(req.body[0].programId + " checklist updated!");
+			console.log("PROGRAM ID RESPONSE: " + listItems[0].programId);
+			res.status(200).send(listItems[0].programId + " checklist updated!");
 		} catch (e) {
 			console.log(e);
 			res.status(500).send("Server error.");
