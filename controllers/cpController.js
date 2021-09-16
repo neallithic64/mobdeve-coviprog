@@ -468,14 +468,13 @@ const cpController = {
 	},
 	
 	postProProgressProg: async function(req, res) {
-		console.log(req.body);
 		try {
 			for (let i = 0; i < req.body.length; i++) {
 				let filter = {
 					progItem: req.body[i].progItem,
 					programId: req.body[i].programId
 				}, update = {
-					checked: req.body[i].checked.toLowerCase() === "true"
+					checked: req.body[i].checked
 				};
 				await db.updateOne(ProgChecklist, filter, update);
 			}
