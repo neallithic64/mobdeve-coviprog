@@ -288,12 +288,16 @@ const cpController = {
 	
 	postCovLogin: async function(req, res) {
 		let {email, password} = req.body;
+		console.table(req.body);
 		try {
 			let user = await db.findOne(UserCov, {email: email});
-			if (!user) res.status(400).send("Incorrect credentials!");
-			else {
+			console.log(user);
+			if (!user) {
+				res.status(400).send("Email not found!");
+			} else {
 				let compare = await bcrypt.compare(password, user.password),
 					type = await db.findOne(PublicUser, {email: email});
+				console.log(compare);
 				if (compare) {
 					if (type) res.status(200).send("PublicUser");
 					else res.status(200).send("AdminUser");
