@@ -130,6 +130,17 @@ const cpController = {
 			res.status(500).send("Server error.");
 		}
 	},
+
+	getCovUsrAddr: async function(req, res) {
+		try {
+			let user = await db.findOne(PublicUser, {email: req.query.email});
+			if (!user) res.status(400).send("Email not found!");
+			else res.status(200).send([user.street, user.barangay, user.city, user.province].join("$");
+		} catch (e) {
+			console.log(e);
+			res.status(500).send("Server error.");
+		}
+	},
 	
 	getCovCaseDetail: async function(req, res) {
 		try {
