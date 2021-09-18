@@ -242,7 +242,6 @@ const cpController = {
 	postCovAddPublic: async function(req, res) {
 		let {password, firstName, lastName, email, birthday, phone, street, barangay, city, province} = req.body;
 		try {
-			console.table(req.body);
 			let userMatch = await db.findOne(UserCov, {email: email});
 			if (userMatch) res.status(400).send("User already exists!");
 			else {
