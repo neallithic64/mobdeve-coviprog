@@ -213,6 +213,7 @@ const cpController = {
 				queries[0].program.city = queries[0].city;
 				queries[0].program.progress = queries[0].progress;
 				queries[0].program.status = queries[0].status;
+				queries[0].feedback = queries[0].feedback[0];
 				res.status(200).send(queries[0]);
 			}
 		} catch (e) {
