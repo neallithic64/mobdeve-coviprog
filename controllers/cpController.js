@@ -158,10 +158,10 @@ const cpController = {
 	},
 	
 	getProFilterProgs: async function(req, res) {
+		// filtering only by city, date range will happen in-app
+		// due to limitations
 		let pipes = [
-			{"$match": {city: req.query.city}},
-			{"$gte": ["$startDate", req.query.startDate]},
-			{"$lte": ["$endDate", req.query.endDate]}
+			{"$match": {city: req.query.city}}
 		];
 		try {
 			let filterResults = await db.aggregate(Program, pipes);
