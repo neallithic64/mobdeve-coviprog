@@ -303,8 +303,8 @@ const cpController = {
 				let compare = await bcrypt.compare(password, user.password),
 					type = await db.findOne(PublicUser, {email: email});
 				if (compare) {
-					if (type) res.status(200).send({uType: 1});
-					else res.status(200).send({uType: 2});
+					if (type) res.status(200).send("PublicUser");
+					else res.status(200).send("AdminUser");
 				} else res.status(400).send("Incorrect credentials!");
 			}
 		} catch (e) {
