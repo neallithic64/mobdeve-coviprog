@@ -311,7 +311,11 @@ const cpController = {
 						userId: user.userId,
 						firstName: user.firstName,
 						lastName: user.lastName,
-						userType: 1
+						userType: 1,
+						street: user.street,
+						barangay: user.barangay,
+						city: user.city,
+						province: user.province
 					});
 					else res.status(200).send({ email: user.email,
 						userId: user.userId,
