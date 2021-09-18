@@ -531,6 +531,9 @@ const cpController = {
 		}
 	},
 
+	//		DATABASE CLEAR METHODS
+	//		TREAT WITH CARE!!!
+
 	getCovClearDb: async function(req, res) {
 		let conf = req.query.conf;
 		if (conf === "CONFIRM") {
