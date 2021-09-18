@@ -496,27 +496,33 @@ const cpController = {
 	},
 	
 	postProEvalProg: async function(req, res) {
-		let {programId, resources, outcomes, comments} = req.body;
+		let {program, resources, outcomes, feedback} = req.body;
+		let newFeedbackId = await genProFeedbackId();
 		try {
 			for (let i = 0; i < resources.length; i++) {
-				let arr = resources[i].split("+"), filter = {
-					programId: programId,
-					resourceName: arr[0]
+				let filter = {
+					programId: program.programId,
+					resourceName: resources[i].resourceName
 				}, update = {
-					actualAmt: arr[1]
+					actualAmt: resources[i].actualAmt
 				};
 				await db.updateOne(Resource, filter, update);
 			}
 			for (let i = 0; i < outcomes.length; i++) {
-				let arr = outcomes[i].split("+"), filter = {
-					programId: programId,
-					outcomeName: arr[0]
+				let filter = {
+					programId: program.programId,
+					outcomeName: outcomes[i].outcomeName
 				}, update = {
-					actualVal: arr[1]
+					actualVal: outcomes[i].actualVal
 				};
 				await db.updateOne(Outcome, filter, update);
 			}
-			await db.updateOne(Program, {programId: programId}, {comments: comments});
+			await db.insertOne(Feedback, {
+				feedbackId: newFeedbackId,
+				programId: program.programId,
+				comments: feedback.comments
+			});
+			await db.updateOne(Program, {programId: programId}, {status: "Completed"});
 			res.status(200).send("Evaluation submitted!");
 		} catch (e) {
 			console.log(e);
