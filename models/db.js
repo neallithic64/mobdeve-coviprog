@@ -60,6 +60,7 @@ const database = {
 	updateOne: async function(model, filter, update) {
 		try {
 			let result = await model.updateOne(filter, update);
+			console.log(result);
 			console.log('Document modified: ' + result.nModified);
 			return true;
 		} catch (e) {
