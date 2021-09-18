@@ -523,7 +523,7 @@ const cpController = {
 				programId: program.programId,
 				comments: feedback.comments
 			});
-			await db.updateOne(Program, {programId: programId}, {status: "Completed"});
+			await db.updateOne(Program, {programId: program.programId}, {status: "Completed"});
 			res.status(200).send("Evaluation submitted!");
 		} catch (e) {
 			console.log(e);
