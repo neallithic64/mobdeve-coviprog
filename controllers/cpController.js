@@ -493,11 +493,12 @@ const cpController = {
 				}, update = {
 					checked: listItems[i].checked
 				};
-				// console.table(filter);
-				// console.table(update);
 				await db.updateOne(ProgChecklist, filter, update);
 			}
-			console.log("PROGRAM ID RESPONSE: " + listItems[0].programId);
+			let progress = listItems.reduce(function(acc, e) {
+				if (e.checked == true) acc++;
+			}, 0) / 5 * 100;
+			await db.updateOne(Program, {programId: listItems[0].programId}, {progress: progress});
 			res.status(200).send(listItems[0].programId + " checklist updated!");
 		} catch (e) {
 			console.log(e);
