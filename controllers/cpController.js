@@ -135,7 +135,7 @@ const cpController = {
 		try {
 			let user = await db.findOne(PublicUser, {email: req.query.email});
 			if (!user) res.status(400).send("Email not found!");
-			else res.status(200).send([user.street, user.barangay, user.city, user.province].join("$");
+			else res.status(200).send([user.street, user.barangay, user.city, user.province]).join("$");
 		} catch (e) {
 			console.log(e);
 			res.status(500).send("Server error.");
