@@ -346,7 +346,7 @@ const cpController = {
 			await db.insertOne(Symptom, newSymp);
 			
 			// TODO: new notif
-			await db.insertOne(Notif, {});
+			// await db.insertOne(Notif, {});
 			res.status(200).send("Case submitted!");
 		} catch (e) {
 			console.log(e);
