@@ -231,6 +231,7 @@ const cpController = {
 	postCovAddPublic: async function(req, res) {
 		let {password, firstName, lastName, email, birthday, phone, street, barangay, city, province} = req.body;
 		try {
+			console.table(req.body);
 			let userMatch = await db.findOne(UserCov, {email: email});
 			if (userMatch) res.status(400).send("User already exists!");
 			else {
@@ -490,9 +491,7 @@ const cpController = {
 				await db.updateOne(ProgChecklist, filter, update);
 			}
 			let progress = listItems.filter(e => e.checked);
-			console.table(progress);
-			console.log(progress.length);
-			await db.updateOne(Program, {programId: listItems[0].programId}, {progress: progress});
+			await db.updateOne(Program, {programId: listItems[0].programId}, {progress: progress.length/5*100});
 			res.status(200).send(listItems[0].programId + " checklist updated!");
 		} catch (e) {
 			console.log(e);
