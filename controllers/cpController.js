@@ -497,7 +497,6 @@ const cpController = {
 	
 	postProProgressProg: async function(req, res) {
 		let listItems = req.body;
-		console.log(listItems);
 		try {
 			for (let i = 0; i < listItems.length; i++) {
 				let filter = {
