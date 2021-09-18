@@ -485,10 +485,9 @@ const cpController = {
 				};
 				await db.updateOne(ProgChecklist, filter, update);
 			}
-			let progress = listItems.reduce(function(acc, e) {
-				if (e.checked) acc++;
-			}, 0);
-			console.log(progress);
+			let progress = listItems.filter(e => e.checked);
+			console.table(progress);
+			console.log(progress.length);
 			await db.updateOne(Program, {programId: listItems[0].programId}, {progress: progress});
 			res.status(200).send(listItems[0].programId + " checklist updated!");
 		} catch (e) {
