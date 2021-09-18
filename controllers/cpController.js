@@ -85,11 +85,6 @@ function genChecklist(programId) {
 			progItem: "Gather evaluations",
 			programId: programId,
 			checked: false
-		},
-		{
-			progItem: "Egress",
-			programId: programId,
-			checked: false
 		}
 	];
 }
