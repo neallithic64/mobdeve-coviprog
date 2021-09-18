@@ -60,8 +60,7 @@ const database = {
 	updateOne: async function(model, filter, update) {
 		try {
 			let result = await model.updateOne(filter, update);
-			console.log(result);
-			console.log('Document modified: ' + result.nModified);
+			console.log('Document modified: ' + result.modifiedCount);
 			return true;
 		} catch (e) {
 			console.log(e);
@@ -72,7 +71,7 @@ const database = {
 	updateMany: async function(model, filter, update) {
 		try {
 			let result = await model.updateMany(filter, update);
-			console.log('Document modified: ' + result.nModified);
+			console.log('Document modified: ' + result.modifiedCount);
 			return true;
 		} catch (e) {
 			return false;
