@@ -246,7 +246,7 @@ const cpController = {
 				let newUser = {
 					userId: await genCovUserId(),
 					email: email,
-					password: Hidden,
+					password: hash,
 					firstName: firstName,
 					lastName: lastName
 				}, newPubUser = {
