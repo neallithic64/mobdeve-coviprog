@@ -529,6 +529,36 @@ const cpController = {
 			console.log(e);
 			res.status(500).send("Server error.");
 		}
+	},
+
+	getCovClearDb: async function(req, res) {
+		let conf = req.query.conf;
+		if (conf === "CONFIRM") {
+			try {
+				// await db.deleteMany(, {});
+				res.status(201).send("Database cleared. Sad to see you go!");
+			} catch (e) {
+				console.log(e);
+				res.status(500).send("Server error.");
+			}
+		} else res.status(400).send("No.");
+	},
+
+	getProClearDb: async function(req, res) {
+		let conf = req.query.conf;
+		if (conf === "CONFIRM") {
+			try {
+				await db.deleteMany(Feedback, {});
+				await db.deleteMany(Outcome, {});
+				await db.deleteMany(ProgChecklist, {});
+				await db.deleteMany(Program, {});
+				await db.deleteMany(Resource, {});
+				res.status(201).send("Database cleared except users. Sad to see you go!");
+			} catch (e) {
+				console.log(e);
+				res.status(500).send("Server error.");
+			}
+		} else res.status(400).send("No.");
 	}
 };
 

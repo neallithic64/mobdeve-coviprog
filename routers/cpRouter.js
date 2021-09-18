@@ -11,11 +11,13 @@ router.get("/api/covid/", cpController.getCovHome);
 router.get("/api/covid/cases", cpController.getCovCaseList);
 router.get("/api/covid/casedeets*", cpController.getCovCaseDetail);
 router.get("/api/covid/notifs*", cpController.getCovNotifList);
+// router.get("/api/covid/clearDB*", cpController.getCovClearDb);
 
 router.get("/api/progp/", cpController.getProHome);
 router.get("/api/progp/progs", cpController.getProProgList);
 router.get("/api/progp/progs*", cpController.getProFilterProgs);
 router.get("/api/progp/progdeets*", cpController.getProProgDetail);
+router.get("/api/progp/clearDB*", cpController.getProClearDb);
 
 
 // POST routes
