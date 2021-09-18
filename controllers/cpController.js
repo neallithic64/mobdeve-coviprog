@@ -14,7 +14,7 @@ const AdminUser = require("../models/AdminUserModel");
 const Case = require("../models/CaseModel");
 const Notif = require("../models/NotifModel");
 const PublicUser = require("../models/PublicUserModel");
-const Symptom = require("../models/SymptomModel");
+// const Symptom = require("../models/SymptomModel");
 const UserCov = require("../models/UserCovModel");
 
 const bcrypt = require("bcrypt");
@@ -121,19 +121,10 @@ const cpController = {
 	},
 	
 	getCovCaseDetail: async function(req, res) {
-		let pipes = [
-			{"$match": {caseId: req.query.id}},
-			{"$lookup": {
-				"from": "SYMPTOMS",
-				"localField": "caseId",
-				"foreignField": "caseId",
-				"as": "Symptoms"
-			}}
-		];
 		try {
-			let queries = await db.aggregate(Case, pipes);
-			if (queries.length === 0) res.status(404).send("No such case found!");
-			else res.status(200).send(queries[0]);
+			let query = await db.findOne(Case, {caseId: req.query.id});
+			if (!query) res.status(404).send("No such case found!");
+			else res.status(200).send(query);
 		} catch (e) {
 			console.log(e);
 			res.status(500).send("Server error.");
@@ -314,8 +305,9 @@ const cpController = {
 	},
 	
 	postCovReportCase: async function(req, res) {
-		let {email, street, barangay, city, province, remarks} = req.body,
-			{fever, cough, shortbreath, fatigue, bodyache, headache, smell, sorethroat, runnynose, nausea, diarrhea} = req.body;
+		let {email, street, barangay, city, province, remarks,
+			fever, cough, shortbreath, fatigue, bodyache, headache,
+			smell, sorethroat, runnynose, nausea, diarrhea} = req.body;
 		let genCaseId = await genCovCaseId();
 		try {
 			let newCase = {
@@ -327,9 +319,7 @@ const cpController = {
 				province: province,
 				remarks: remarks,
 				caseStatus: "For Review",
-				dateSubmitted: new Date()
-			}, newSymp = {
-				caseId: genCaseId,
+				dateSubmitted: new Date(),
 				fever: fever,
 				cough: cough,
 				shortbreath: shortbreath,
@@ -343,7 +333,6 @@ const cpController = {
 				diarrhea: diarrhea
 			};
 			await db.insertOne(Case, newCase);
-			await db.insertOne(Symptom, newSymp);
 			
 			// TODO: new notif
 			// await db.insertOne(Notif, {});
