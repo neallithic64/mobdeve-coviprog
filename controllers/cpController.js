@@ -314,7 +314,8 @@ const cpController = {
 	},
 	
 	postCovReportCase: async function(req, res) {
-		let {email, street, barangay, city, province, symptoms, remarks} = req.body;
+		let {email, street, barangay, city, province, remarks} = req.body,
+			{fever, cough, shortbreath, fatigue, bodyache, headache, smell, sorethroat, runnynose, nausea, diarrhea} = req.body;
 		let genCaseId = await genCovCaseId();
 		try {
 			let newCase = {
@@ -327,18 +328,22 @@ const cpController = {
 				remarks: remarks,
 				caseStatus: "For Review",
 				dateSubmitted: new Date()
+			}, newSymp = {
+				caseId: genCaseId,
+				fever: fever,
+				cough: cough,
+				shortbreath: shortbreath,
+				fatigue: fatigue,
+				bodyache: bodyache,
+				headache: headache,
+				smell: smell,
+				sorethroat: sorethroat,
+				runnynose: runnynose,
+				nausea: nausea,
+				diarrhea: diarrhea
 			};
 			await db.insertOne(Case, newCase);
-			
-			// draft for case symptoms recording:
-			for (let i = 0; i < symptoms.length; i++) {
-				let arr = symptoms[i].split("+"), newSymp = {
-					caseId: genCaseId,
-					sympName: arr[0],
-					sympDays: arr[1]
-				};
-				await db.insertOne(Symptom, newSymp);
-			}
+			await db.insertOne(Symptom, newSymp);
 			
 			// TODO: new notif
 			await db.insertOne(Notif, {});
