@@ -167,10 +167,18 @@ const cpController = {
 	},
 	
 	getProFilterProgs: async function(req, res) {
-		// req.query.startDate, req.query.endDate, req.query.city
 		let pipes = [
-			// {"$xyz": something}
+			{"$match": {city: req.query.city}},
+			{"$gte": ["$startDate", req.query.startDate]},
+			{"$lte": ["$endDate", req.query.endDate]}
 		];
+		try {
+			let filterResults = await db.aggregate(Program, pipes);
+			res.status(200).send(filterResults);
+		} catch (e) {
+			console.log(e);
+			res.status(500).send("Server error.");
+		}
 	},
 	
 	getProProgDetail: async function(req, res) {
