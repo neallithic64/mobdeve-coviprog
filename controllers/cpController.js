@@ -193,6 +193,12 @@ const cpController = {
 				"localField": "programId",
 				"foreignField": "programId",
 				"as": "resources"
+			}},
+			{"$lookup": {
+				"from": "feedback",
+				"localField": "programId",
+				"foreignField": "programId",
+				"as": "feedback"
 			}}
 		];
 		try {
