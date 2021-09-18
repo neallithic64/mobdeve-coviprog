@@ -89,6 +89,17 @@ function genChecklist(programId) {
 	];
 }
 
+function getPStatus(filtered) {
+	switch (filtered.length) {
+		case 1:
+		case 2:
+		case 3: return "In Progress";
+		case 4: return "Needs Evaluation";
+		case 5: return "Complete";
+		default: return "Pending";
+	}
+}
+
 
 
 /* Index Functions
@@ -497,8 +508,10 @@ const cpController = {
 				};
 				await db.updateOne(ProgChecklist, filter, update);
 			}
-			let progress = listItems.filter(e => e.checked);
-			await db.updateOne(Program, {programId: listItems[0].programId}, {progress: progress.length/5*100});
+			let progress = listItems.filter(e => e.checked), status = getPStatus(progress);
+			await db.updateOne(Program,
+					{programId: listItems[0].programId},
+					{progress: progress.length/5*100, status: status});
 			res.status(200).send(listItems[0].programId + " checklist updated!");
 		} catch (e) {
 			console.log(e);
