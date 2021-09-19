@@ -160,6 +160,7 @@ const cpController = {
 	getCovNotifList: async function(req, res) {
 		try {
 			let notifs = await db.findMany(Notif, {receiverEmail: req.query.receiverEmail});
+			console.table(notifs);
 			res.status(200).send(notifs);
 		} catch (e) {
 			console.log(e);
