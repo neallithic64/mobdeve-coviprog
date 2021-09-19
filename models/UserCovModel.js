@@ -5,7 +5,8 @@ var UserCovSchema = new mongoose.Schema({
 	email: String,
 	password: String,
 	firstName: String,
-	lastName: String
+	lastName: String,
+	token: String
 });
 
 module.exports = mongoose.model('USERSCOV', UserCovSchema);

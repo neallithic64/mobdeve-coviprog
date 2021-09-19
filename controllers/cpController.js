@@ -255,7 +255,7 @@ const cpController = {
 	//		COVID POST METHODS
 	
 	postCovAddPublic: async function(req, res) {
-		let {password, firstName, lastName, email, birthday, phone, street, barangay, city, province} = req.body;
+		let {password, firstName, lastName, email, token, birthday, phone, street, barangay, city, province} = req.body;
 		try {
 			let userMatch = await db.findOne(UserCov, {email: email});
 			if (userMatch) res.status(400).send("User already exists!");
@@ -266,7 +266,8 @@ const cpController = {
 					email: email,
 					password: hash,
 					firstName: firstName,
-					lastName: lastName
+					lastName: lastName,
+					token: token
 				}, newPubUser = {
 					email: email,
 					birthday: new Date(birthday),
@@ -392,6 +393,20 @@ const cpController = {
 			// TODO: new notif
 			await db.insertOne(Notif, {});
 			res.status(200).send("Case status updated!");
+		} catch (e) {
+			console.log(e);
+			res.status(500).send("Server error.");
+		}
+	},
+
+	postCovSetToken: async function(req, res) {
+		let {email, token} = req.body;
+		try {
+			let admin = await db.findOne(AdminUser, {email: email});
+			if (admin) {
+				await db.updateOne(UserCov, {email: email}, {token: token});
+				res.status(200).send("Admin token updated!");
+			} else res.status(400).send("No such admin email found!");
 		} catch (e) {
 			console.log(e);
 			res.status(500).send("Server error.");
