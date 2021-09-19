@@ -387,9 +387,9 @@ const cpController = {
 	},
 	
 	postCovEditCase: async function(req, res) {
-		let {caseId, newStatus} = req.body;
+		let {caseId, caseStatus} = req.body;
 		try {
-			await db.updateOne(Case, {caseId: caseId}, {caseStatus: newStatus});
+			await db.updateOne(Case, {caseId: caseId}, {caseStatus: caseStatus});
 			// TODO: new notif
 			await db.insertOne(Notif, {});
 			res.status(200).send("Case status updated!");
