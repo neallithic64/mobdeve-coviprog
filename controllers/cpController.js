@@ -397,12 +397,12 @@ const cpController = {
 	postCovEditCase: async function(req, res) {
 		let {caseId, caseStatus} = req.body;
 		try {
-			let case = await db.findOne(Case, {caseId: caseId});
-			if (case) {
+			let updateCase = await db.findOne(Case, {caseId: caseId});
+			if (updateCase) {
 				await db.updateOne(Case, {caseId: caseId}, {caseStatus: caseStatus});
 				let newNotif = {
 					senderEmail: "admin",
-					receiverEmail: case.email,
+					receiverEmail: updateCase.email,
 					notifId: await genCovNotifId(),
 					caseId: caseId,
 					caseStatus: caseStatus,
