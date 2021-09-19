@@ -384,7 +384,7 @@ const cpController = {
 				notifId: await genCovNotifId(),
 				caseId: genCaseId,
 				caseStatus: "For Review",
-				message: "New case has been submitted by " + email + " for review!",
+				message: "New possible case in " + city + " for review!",
 				dateCreated: new Date()
 			};
 			await db.insertOne(Notif, newNotif);
