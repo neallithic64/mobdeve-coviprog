@@ -397,10 +397,21 @@ const cpController = {
 	postCovEditCase: async function(req, res) {
 		let {caseId, caseStatus} = req.body;
 		try {
-			await db.updateOne(Case, {caseId: caseId}, {caseStatus: caseStatus});
-			// TODO: new notif
-			await db.insertOne(Notif, {});
-			res.status(200).send("Case status updated!");
+			let case = await db.findOne(Case, {caseId: caseId});
+			if (case) {
+				await db.updateOne(Case, {caseId: caseId}, {caseStatus: caseStatus});
+				let newNotif = {
+					senderEmail: "admin",
+					receiverEmail: case.email,
+					notifId: await genCovNotifId(),
+					caseId: caseId,
+					caseStatus: caseStatus,
+					message: "Case " + caseId + " has been updated to " + caseStatus + "!",
+					dateCreated: new Date()
+				};
+				await db.insertOne(Notif, newNotif);
+				res.status(200).send("Case status updated!");
+			} else res.status(404).send("Case not found!");
 		} catch (e) {
 			console.log(e);
 			res.status(500).send("Server error.");
