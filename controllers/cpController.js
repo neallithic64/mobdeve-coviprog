@@ -377,8 +377,16 @@ const cpController = {
 			};
 			await db.insertOne(Case, newCase);
 			
-			// TODO: new notif
-			// await db.insertOne(Notif, {});
+			let newNotif = {
+				senderEmail: email,
+				receiverEmail: "admin",
+				notifId: await genCovNotifId(),
+				caseId: genCaseId,
+				caseStatus: "For Review",
+				message: "New case has been submitted by " + email + " for review!",
+				dateCreated: new Date()
+			};
+			await db.insertOne(Notif, newNotif);
 			res.status(200).send("Case submitted!");
 		} catch (e) {
 			console.log(e);
